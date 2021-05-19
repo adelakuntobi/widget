@@ -43,7 +43,7 @@ const General = styled.section`
 
 
   .form-input{
-    .css-1yn2e29-InputColor{
+    &>span{
       height: auto;
       padding: 0;
       border: 0;
