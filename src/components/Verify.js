@@ -123,6 +123,7 @@ const Verify = () => {
   const [bGColor, setBGColor] = useState({});
 
   // Logo
+  // eslint-disable-next-line
   const [logo, setLogo] = useState("https://notilos.com/verify/v1/client/paga.jpg")
 
 
