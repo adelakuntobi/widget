@@ -125,6 +125,7 @@ const Verify = () => {
   // Logo
   // eslint-disable-next-line
   const [logo, setLogo] = useState("https://notilos.com/verify/v1/client/paga.jpg")
+  // const [logo, setLogo] = useState("https://raw.githubusercontent.com/adelakuntobi/teabox/master/src/images/logo.png")
 
 
   return (
@@ -137,11 +138,11 @@ const Verify = () => {
           <form>
             <div className="form-group">
               <label className="form-label" htmlFor="name">Service ID</label>
-              <input type="text" disabled="" className="bg-gray-200" defaultValue="7dds6vdvwewnejdnwjeniwj88383jen3uen" />
+              <input type="text" disabled className="bg-gray-200" defaultValue="7dds6vdvwewnejdnwjeniwj88383jen3uen" />
             </div>
             <div className="form-group">
               <label className="form-label" htmlFor="email">Logo URL</label>
-              <input type="text" value={logo} />
+              <input type="text" value={logo} onChange={e => setLogo(e.target.value)}/>
             </div>
             <div className="form-group">
               <label className="form-label" htmlFor="border">Border Color</label>
@@ -226,7 +227,7 @@ const Verify = () => {
 
             {/* CONSENT */}
             <div className="flex items-center">
-              <input type="checkbox" id="consent" className="w-4 h-4 mr-3" />
+              <input checked type="checkbox" id="consent" className="w-4 h-4 mr-3" />
               <label htmlFor="consent">Allow Access to Pull Account Details?</label>
             </div>
 
