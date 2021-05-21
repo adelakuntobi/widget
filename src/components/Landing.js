@@ -43,7 +43,7 @@ background-color: #245b5f;
 
 const Landing = () => {
   return (
-    <div>
+    <div className="transition duration-1000 ease-in-out transform">
       {/* Start Modal */}
       <BgImgDiv>
         {/* <div className="overlay"></div> */}

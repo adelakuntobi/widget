@@ -1,118 +1,9 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import { DefaultBtn } from "./Landing"
 import InputColor from 'react-input-color';
-
-const General = styled.section`
-
-
-  border-radius: .25rem;
-
-  input,select{
-    display: block;
-    width: 100%;
-    font-weight: 400;
-    color: #3c4d62;
-    /* background-color: #fff; */
-    background-clip: padding-box;
-    border: 1px solid #dbdfea;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    height: calc(2.625rem + 2px);
-    padding: 0.6875rem 1rem;
-    font-size: 0.9375rem;
-    line-height: 1.25rem;
-    border-radius: 5px;
-    &:focus{
-      color: #3c4d62;
-    background-color: #fff;
-    border-color: rgb(133 79 255 / 10%);
-    outline: 0;
-    box-shadow: 0 0 0 3px rgb(133 79 255 / 10%);
-    }
-  }
-  .form-group{
-    margin-bottom: 1.25rem;
-
-    label{
-      display: inline-block;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #344357;
-      margin-bottom: 0.5rem;
-    }
+import { Product, WidgetGen } from './Styles';
+import '@smile_identity/smart-camera-web'
 
 
-  .form-input{
-    &>span{
-      height: auto;
-      padding: 0;
-      border: 0;
-      border-radius: 0.25rem;
-    }
-    input{
-      border: 0;
-      height: auto;
-      padding: 0.6875rem 1rem;
-      &:focus{
-        color: 0;
-        background-color: #fff;
-        outline: 0;
-        box-shadow: none;
-      }
-    }
-    display: flex;
-    width: 100%;
-    font-weight: 400;
-    color: #3c4d62;
-    /* background-color: #fff; */
-    background-clip: padding-box;
-    border: 1px solid #dbdfea;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    height: calc(2.625rem + 2px);
-    padding: 0;
-    font-size: 0.9375rem;
-    line-height: 1.25rem;
-    border-radius: 5px;
-    &:focus-within{
-      color: #3c4d62;
-    background-color: #fff;
-    border-color: rgb(133 79 255 / 10%);
-    outline: 0;
-    box-shadow: 0 0 0 3px rgb(133 79 255 / 10%);
-    }
-  }
-}
-`;
-
-const WidgetGen = styled(General)`
-  padding: 1.5rem;
-  background-color:white;
-`;
-
-const Product = styled(General)`
-  max-width: 650px;
-  width: 415px;
-  margin: auto;
-  select,.form-input{
-    margin-bottom: .85rem;
-  }
-  [type="checkbox"]{
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-
-  }
-    .placeholder{
-    margin-bottom: .5rem;
-    display: inline-block;
-    font-size: 11px;
-    line-height: 1.2;
-    letter-spacing: 0.2em;
-    color: #8094ae;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-`;
 
 const Verify = () => {
   const [initialBorder, setInitialBorder] = useState('#E37F5DFF');
@@ -123,9 +14,28 @@ const Verify = () => {
   const [bGColor, setBGColor] = useState({});
 
   // Logo
-  // eslint-disable-next-line
   const [logo, setLogo] = useState("https://notilos.com/verify/v1/client/paga.jpg")
-  // const [logo, setLogo] = useState("https://raw.githubusercontent.com/adelakuntobi/teabox/master/src/images/logo.png")
+
+
+  // ID Option
+  const [IDOption, setIDOption] = useState("No")
+  const [AddrOption, setAddrOption] = useState("Yes")
+
+
+  // Checkboxes
+  const [BVN, setBVN] = useState(true)
+  const [NIN, setNIN] = useState(true)
+  const [passport, setPassport] = useState(true)
+  const [DL, setDL] = useState(true)
+
+  // const smartCameraWeb = document.querySelector('smart-camera-web');
+
+  // smartCameraWeb.addEventListener('imagesComputed', (e) => {
+  //   const data = e.detail;
+  
+  //   // add any textual data that may be required here
+    
+  // });
 
 
   return (
@@ -142,7 +52,7 @@ const Verify = () => {
             </div>
             <div className="form-group">
               <label className="form-label" htmlFor="email">Logo URL</label>
-              <input type="text" value={logo} onChange={e => setLogo(e.target.value)}/>
+              <input type="text" value={logo} onChange={e => setLogo(e.target.value)} />
             </div>
             <div className="form-group">
               <label className="form-label" htmlFor="border">Border Color</label>
@@ -150,7 +60,6 @@ const Verify = () => {
                 <InputColor initialValue={initialBorder} onChange={setBorderColor} />
                 <input className="uppercase"
                   type="text" defaultValue={initialBorder}
-                  value={borderColor.hex}
                   onChange={e => setInitialBorder(e.target.value)}
                 />
               </div>
@@ -162,26 +71,57 @@ const Verify = () => {
                 <InputColor initialValue={initialBG} onChange={setBGColor} />
                 <input className="uppercase"
                   type="text" defaultValue={initialBG}
-                  value={bGColor.hex}
                   onChange={e => setInitialBG(e.target.value)}
                 />
               </div>
             </div>
             <div className="form-group">
               <label className="form-label" htmlFor="ID">ID Type</label>
-              <select className="">
-                <option>Yes</option>
-                <option>No</option>
+              <select className=""
+                defaultValue={IDOption}
+                onChange={e => setIDOption(e.target.value)}>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
+
+            {IDOption === "Yes" ?
+              <div className="form-group input">
+                <h4>Please Select</h4>
+                <div className="flex items-center">
+                  <input defaultChecked={BVN}
+                    onChange={() => setBVN(!BVN)}
+                    type="checkbox" id="bvn" className="w-4 h-4 mr-3" />
+                  <label htmlFor="bvn">Bank Verification Number (BVN)</label>
+                </div>
+                <div className="flex items-center">
+                  <input defaultChecked={NIN}
+                    onChange={() => setNIN(!NIN)}
+                    type="checkbox" id="nin" className="w-4 h-4 mr-3" />
+                  <label htmlFor="nin">National Identity Number (NIN)</label>
+                </div>
+                <div className="flex items-center">
+                  <input defaultChecked={passport}
+                    onChange={() => setPassport(!passport)}
+                    type="checkbox" id="passport" className="w-4 h-4 mr-3" />
+                  <label htmlFor="passport">Passport</label>
+                </div>
+                <div className="flex items-center">
+                  <input defaultChecked={DL}
+                    onChange={() => setDL(!DL)} type="checkbox" id="dl" className="w-4 h-4 mr-3" />
+                  <label htmlFor="dl">Drivers' License</label>
+                </div>
+              </div> : ""}
+
             <div className="form-group">
               <label className="form-label" htmlFor="name">Address Type</label>
-              <select className="">
-                <option>Yes</option>
-                <option>No</option>
+              <select className=""
+                defaultValue={AddrOption}
+                onChange={e => setAddrOption(e.target.value)}>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
               </select>
             </div>
-            <DefaultBtn>Submit</DefaultBtn>
           </form>
         </WidgetGen>
 
@@ -190,44 +130,52 @@ const Verify = () => {
             <img width="122" height="35" src={logo} alt="company" className="mx-auto my-6" />
             <div>
               <h2>Add your photo</h2>
+              <smart-camera-web>
+              </smart-camera-web>
             </div>
 
             {/* ID TYPE */}
-            <div>
-              <div className="form-input relative">
-                <span className="placeholder">ID Type</span>
-                <select>
-                  <option>Bank Verification Number (BVN)</option>
-                  <option>Bank Verification Number (BVN)</option>
-                  <option>Bank Verification Number (BVN)</option>
-                </select>
-              </div>
-              <div className="form-input relative">
-                <span className="placeholder">ID NO</span>
-                <input type="text" />
-              </div>
-            </div>
+            {IDOption === "Yes" ?
+              <div>
+                <div className="form-input relative">
+                  <span className="placeholder">ID Type</span>
+                  <select>
+                    <option hidden defaultselected="true">Please Select</option>
+                    {BVN ? <option>Bank Verification Number (BVN)</option> : ""}
+                    {NIN ? <option>National Identity Number (NIN)</option> : ""}
+                    {passport ? <option>Passport</option> : ""}
+                    {DL ? <option>Drivers' License</option> : ""}
+                  </select>
+                </div>
+                <div className="form-input relative">
+                  <span className="placeholder">ID NO</span>
+                  <input type="text" />
+                </div>
+              </div> : ""
+            }
 
             {/* ADDRESS */}
-            <div>
-              <div className="form-input relative">
-                <span className="placeholder">Address Type</span>
-                <select>
-                  <option>Address Type 1</option>
-                  <option>Address Type 2</option>
-                  <option>Address Type 3</option>
-                </select>
-              </div>
-              <div className="form-input relative">
-                <span className="placeholder">Address</span>
-                <input type="text" />
-              </div>
-            </div>
+            {AddrOption === "Yes" ?
+              <div className="ease-in-out duration-700 transition-all">
+                <div className="form-input relative">
+                  <span className="placeholder">Address Type</span>
+                  <select>
+                    <option>Address Type 1</option>
+                    <option>Address Type 2</option>
+                    <option>Address Type 3</option>
+                  </select>
+                </div>
+                <div className="form-input relative">
+                  <span className="placeholder">Address</span>
+                  <input type="text" />
+                </div>
+              </div> : ""
+            }
 
 
             {/* CONSENT */}
             <div className="flex items-center">
-              <input checked type="checkbox" id="consent" className="w-4 h-4 mr-3" />
+              <input type="checkbox" id="consent" className="w-4 h-4 mr-3" />
               <label htmlFor="consent">Allow Access to Pull Account Details?</label>
             </div>
 
